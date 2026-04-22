@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AccessOne — Payments Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* === COMPASS FOR STAFF TOKENS === */
+    :root {
+      --teal-100: #294753; --teal-70: #546C75; --teal-60: #596B73;
+      --teal-55: #697E87; --teal-50: #94A3A9; --teal-20: #D4DADD; --teal-10: #EAEDEE;
+      --orange-100: #F26B2E; --orange-120: #DE622B;
+      --blue-100: #1677B8; --blue-150: #075D96; --blue-170: #073859; --blue-20: #E8F6FC;
+      --green-100: #388017; --green-150: #2F6B13; --green-20: #DBF3D0;
+      --red-100: #A52F2F; --red-150: #912929; --red-20: #F2CECE; --red-10: #F8EFEF;
+      --yellow-100: #F9A93F; --yellow-120: #DC9020; --yellow-170: #824F0A;
+      --yellow-20: #FCE5C5; --yellow-10: #F9F1E1;
+      --purple-100: #7A2983; --purple-50: #E0D8F5;
+      --dark-grey: #24292F; --grey-3: #EEF1F1; --grey-2: #E1E4E5;
+      --grey-1: #F0F2F2; --grey-0: #F8F8F8; --white: #FFFFFF;
+      --text: #24292F; --subtle: #546C75; --link: #1677B8;
+      --bg: #F0F2F2; --divider: #E1E4E5;
+      --font: 'Lato', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); font-size: 14px; color: var(--text); background: var(--bg); min-height: 100vh; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+    /* === NAV === */
+    .top-nav {
+      background: var(--teal-100); height: 52px; display: flex; align-items: center;
+      padding: 0 24px; position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.25);
+    }
+    .nav-brand { color: var(--white); font-size: 17px; font-weight: 900; letter-spacing: -0.3px; margin-right: 32px; white-space: nowrap; }
+    .nav-brand span { color: var(--orange-100); }
+    .nav-tabs { display: flex; height: 100%; align-items: center; flex: 1; }
+    .nav-tab {
+      height: 100%; display: flex; align-items: center; padding: 0 16px;
+      color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 400;
+      cursor: pointer; border-bottom: 3px solid transparent;
+      gap: 6px; transition: all 0.15s; white-space: nowrap; user-select: none;
+    }
+    .nav-tab:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.07); }
+    .nav-tab.active { color: var(--white); border-bottom-color: var(--orange-100); font-weight: 700; }
+    .nav-badge { background: var(--orange-100); color: white; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; }
+    .nav-right { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+    .nav-org { color: rgba(255,255,255,0.65); font-size: 13px; }
+    .nav-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--orange-100); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+    /* === VIEWS === */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* === WORKLIST === */
+    .page-wrap { max-width: 1300px; margin: 0 auto; padding: 24px; }
+    .page-title { font-size: 22px; font-weight: 900; color: var(--text); line-height: 1.2; }
+    .page-sub { font-size: 12px; color: var(--subtle); margin-top: 3px; margin-bottom: 18px; }
+
+    .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .search-wrap { position: relative; flex: 1; max-width: 380px; }
+    .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--teal-50); pointer-events: none; }
+    .search-input {
+      width: 100%; height: 34px; border: 1px solid var(--divider); border-radius: 6px;
+      padding: 0 10px 0 32px; font-family: var(--font); font-size: 13px;
+      color: var(--text); background: var(--white); outline: none; transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--teal-50); }
+    .search-input:focus { border-color: var(--blue-100); box-shadow: 0 0 0 2px rgba(22,119,184,0.12); }
+    .count { font-size: 12px; color: var(--subtle); margin-left: auto; white-space: nowrap; }
+
+    .filter-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+    .chip {
+      height: 28px; display: inline-flex; align-items: center; gap: 4px;
+      padding: 0 10px; border: 1px solid var(--divider); border-radius: 14px;
+      background: var(--white); font-family: var(--font); font-size: 12px;
+      color: var(--text); cursor: pointer; transition: all 0.15s; user-select: none;
+    }
+    .chip:hover { border-color: var(--blue-100); color: var(--blue-100); }
+    .chip.on { background: var(--blue-20); border-color: var(--blue-100); color: var(--blue-100); font-weight: 700; }
+    .chip svg { width: 9px; height: 9px; flex-shrink: 0; }
+    .clear-btn { background: none; border: none; font-family: var(--font); font-size: 12px; color: var(--blue-100); cursor: pointer; padding: 0 6px; display: flex; align-items: center; gap: 3px; }
+    .clear-btn:hover { color: var(--blue-150); }
+
+    /* Table */
+    .tbl-card { background: var(--white); border-radius: 8px; border: 1px solid var(--divider); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--grey-0); border-bottom: 1px solid var(--divider); }
+    th { padding: 8px 16px; text-align: left; font-size: 10px; font-weight: 700; color: var(--subtle); letter-spacing: 0.6px; text-transform: uppercase; white-space: nowrap; }
+    td { padding: 11px 16px; font-size: 13px; border-bottom: 1px solid var(--grey-1); vertical-align: middle; }
+    tbody tr { cursor: pointer; transition: background 0.1s; }
+    tbody tr:hover { background: var(--grey-0); }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .risk-dot-cell { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; }
+    .rdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .r-high .rdot { background: var(--red-100); } .r-high { color: var(--red-100); }
+    .r-med .rdot { background: var(--orange-100); } .r-med { color: var(--orange-100); }
+    .r-low .rdot { background: var(--green-100); } .r-low { color: var(--green-100); }
+
+    .pt-name { font-weight: 700; font-size: 13px; }
+    .pt-guar { font-size: 11px; color: var(--subtle); margin-top: 1px; }
+    .bal { font-weight: 700; }
+    .bal-sub { font-size: 11px; color: var(--subtle); margin-top: 1px; }
+
+    .badge {
+      display: inline-flex; align-items: center; padding: 3px 8px;
+      border-radius: 4px; font-size: 11px; font-weight: 700; white-space: nowrap;
+    }
+    .b-red { background: var(--red-20); color: var(--red-100); }
+    .b-yellow { background: var(--yellow-20); color: var(--yellow-170); }
+    .b-blue { background: var(--blue-20); color: var(--blue-170); }
+    .b-green { background: var(--green-20); color: var(--green-150); }
+    .b-grey { background: var(--grey-2); color: var(--teal-70); }
+    .b-purple { background: var(--purple-50); color: var(--purple-100); }
+
+    .aging { font-size: 12px; font-weight: 700; }
+    .ag-red { color: var(--red-100); } .ag-orange { color: var(--orange-100); }
+    .ag-green { color: var(--green-100); } .ag-purple { color: var(--purple-100); }
+    .lc { font-size: 12px; color: var(--subtle); }
+    .lc-red { color: var(--red-100); font-weight: 700; }
+    .lc-green { color: var(--green-100); font-weight: 700; }
+
+    /* === PATIENT DETAIL === */
+    .detail-wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+    .detail-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--blue-100); cursor: pointer; font-weight: 700;
+      background: none; border: none; font-family: var(--font); padding: 0; transition: color 0.15s;
+    }
+    .back-btn:hover { color: var(--blue-150); }
+    .pn-btns { display: flex; gap: 6px; }
+    .pn-btn {
+      height: 30px; padding: 0 12px; border: 1px solid var(--divider); border-radius: 6px;
+      background: var(--white); font-family: var(--font); font-size: 12px; color: var(--text);
+      cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.15s;
+    }
+    .pn-btn:hover { background: var(--grey-0); border-color: var(--teal-50); }
+
+    /* Header card */
+    .hcard { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 20px; margin-bottom: 14px; }
+    .hname-row { display: flex; align-items: center; gap: 10px; margin-bottom: 3px; }
+    .hname { font-size: 22px; font-weight: 900; }
+    .risk-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;
+    }
+    .rp-high { background: var(--red-20); color: var(--red-100); }
+    .rp-low { background: var(--green-20); color: var(--green-150); }
+    .rp-pre { background: var(--purple-50); color: var(--purple-100); }
+    .hmeta { font-size: 12px; color: var(--subtle); margin-bottom: 14px; }
+
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(5, auto) 1fr;
+      gap: 20px; padding: 12px 0; border-top: 1px solid var(--grey-1); border-bottom: 1px solid var(--grey-1);
+      margin-bottom: 16px;
+    }
+    .ci label { display: block; font-size: 10px; font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+    .ci value { display: block; font-size: 13px; }
+    .enrolled { color: var(--green-100); font-weight: 700; }
+
+    .bal-action { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
+    .total-lbl { font-size: 10px; font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .total-amt { font-size: 26px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+    .bal-line { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--subtle); margin-bottom: 3px; }
+    .bldot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .bl-val { margin-left: auto; font-weight: 700; color: var(--text); }
+
+    /* Quick actions */
+    .qa-box { background: var(--grey-0); border: 1px solid var(--divider); border-radius: 8px; padding: 14px; min-width: 340px; }
+    .qa-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .qa-btn {
+      height: 32px; border-radius: 6px; border: 1px solid var(--divider); background: var(--white);
+      font-family: var(--font); font-size: 11px; color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      font-weight: 600; transition: all 0.15s; padding: 0 6px; white-space: nowrap;
+    }
+    .qa-btn:hover { background: var(--grey-0); border-color: var(--teal-50); }
+    .qa-primary { background: var(--blue-100); color: var(--white); border-color: var(--blue-100); }
+    .qa-primary:hover { background: var(--blue-150); border-color: var(--blue-150); }
+    .qa-danger { border-color: var(--red-100); color: var(--red-100); }
+    .qa-danger:hover { background: var(--red-10); }
+    .span3 { grid-column: span 3; }
+    .span2 { grid-column: span 2; }
+
+    /* Lifecycle */
+    .lc-card { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 16px 20px; margin-bottom: 14px; }
+    .lc-title { font-size: 10px; font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+    .steps { display: flex; align-items: center; }
+    .step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; }
+    .step::before { content: ''; position: absolute; top: 10px; left: calc(-50% + 11px); right: calc(50% + 11px); height: 2px; background: var(--grey-2); }
+    .step:first-child::before { display: none; }
+    .step.done::before, .step.cur::before { background: var(--blue-100); }
+    .step-circ { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--grey-2); background: var(--white); display: flex; align-items: center; justify-content: center; z-index: 1; }
+    .step.done .step-circ { background: var(--blue-100); border-color: var(--blue-100); }
+    .step.cur .step-circ { border-color: var(--blue-100); }
+    .step-inner-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue-100); }
+    .step-lbl { font-size: 10px; color: var(--subtle); text-align: center; white-space: nowrap; }
+    .step.cur .step-lbl { color: var(--blue-100); font-weight: 700; }
+
+    /* Layout */
+    .two-col { display: grid; grid-template-columns: 1fr 300px; gap: 14px; align-items: start; }
+    .main-col { display: flex; flex-direction: column; gap: 14px; }
+
+    /* Bill cards */
+    .bill-card { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 16px 20px; }
+    .bill-hdr { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 3px; }
+    .bill-name { font-size: 14px; font-weight: 700; }
+    .bill-meta { font-size: 11px; color: var(--subtle); margin-bottom: 14px; }
+    .bill-amt { font-size: 18px; font-weight: 900; }
+    .tag-red { color: var(--red-100); font-size: 11px; font-weight: 700; }
+    .tag-green { color: var(--green-100); font-size: 11px; font-weight: 700; }
+
+    .stmt-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--subtle); margin-bottom: 8px; }
+    .stmts { display: flex; align-items: flex-start; }
+    .ss { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; position: relative; }
+    .ss::before { content: ''; position: absolute; top: 10px; left: calc(-50% + 12px); right: calc(50% + 12px); height: 2px; background: var(--grey-2); }
+    .ss:first-child::before { display: none; }
+    .ss.sent::before, .ss.cur::before { background: var(--blue-100); }
+    .sc { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--grey-2); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: var(--subtle); z-index: 1; }
+    .ss.sent .sc { background: var(--blue-20); border-color: var(--blue-100); color: var(--blue-100); }
+    .ss.cur .sc { background: var(--blue-100); border-color: var(--blue-100); color: white; }
+    .sl { font-size: 9px; color: var(--subtle); text-align: center; }
+    .ss.sent .sl, .ss.cur .sl { color: var(--blue-100); }
+
+    .plan-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; background: var(--grey-0); border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+    .pg-item label { display: block; font-size: 10px; font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; }
+    .pg-item value { display: block; font-size: 13px; font-weight: 700; }
+    .prog-bg { height: 5px; background: var(--grey-2); border-radius: 3px; overflow: hidden; margin-bottom: 3px; }
+    .prog-fill { height: 100%; background: var(--blue-100); border-radius: 3px; }
+    .prog-lbl { font-size: 10px; color: var(--subtle); text-align: right; }
+    .next-pmt { font-size: 11px; color: var(--subtle); margin-top: 8px; }
+
+    /* Risk flags */
+    .riskcard { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 16px 20px; }
+    .card-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .card-ttl { font-size: 14px; font-weight: 700; }
+    .card-sub { font-size: 11px; color: var(--subtle); }
+    .flag-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--grey-1); font-size: 13px; }
+    .flag-item:last-child { border-bottom: none; }
+    .fdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .fdot-red { background: var(--red-100); }
+    .fdot-green { background: var(--green-100); }
+
+    /* Sidebar timeline */
+    .sidebar { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 16px; position: sticky; top: 66px; max-height: calc(100vh - 90px); overflow-y: auto; }
+    .tl-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--grey-1); }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+    .ti-alert { background: var(--red-20); }
+    .ti-stmt { background: var(--blue-20); }
+    .ti-call { background: var(--yellow-20); }
+    .ti-pay { background: var(--green-20); }
+    .ti-svc { background: var(--purple-50); }
+    .tl-ttl { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .tl-ttl.alert { color: var(--red-100); }
+    .tl-meta { font-size: 11px; color: var(--subtle); margin-top: 1px; }
+
+    /* Preservice */
+    .ps-card { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 16px 20px; }
+    .awaiting { display: inline-flex; padding: 2px 8px; background: var(--yellow-20); color: var(--yellow-170); border-radius: 4px; font-size: 10px; font-weight: 700; }
+    .amt-tilde { font-size: 18px; font-weight: 900; color: var(--subtle); }
+    .note-box { background: var(--grey-0); padding: 8px 12px; border-radius: 6px; font-size: 11px; color: var(--subtle); margin-bottom: 12px; }
+
+    .opts-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--subtle); margin-bottom: 8px; }
+    .opts-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .opt { border: 2px solid var(--grey-2); border-radius: 8px; padding: 10px 8px; text-align: center; }
+    .opt.sel { border-color: var(--blue-100); background: var(--blue-20); }
+    .opt-lbl { font-size: 10px; color: var(--subtle); margin-bottom: 3px; }
+    .opt.sel .opt-lbl { color: var(--blue-100); }
+    .opt-amt { font-size: 12px; font-weight: 700; color: var(--text); }
+    .opt.sel .opt-amt { color: var(--blue-170); }
+    .opt-int { font-size: 10px; color: var(--subtle); margin-top: 2px; }
+    .opt.sel .opt-int { color: var(--blue-100); }
+    .opt-check { display: block; font-size: 10px; color: var(--blue-100); font-weight: 700; margin-top: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="nav-brand">Access<span>One</span></div>
+  <div class="nav-tabs">
+    <div class="nav-tab" onclick="goWorklist()">Dashboard</div>
+    <div class="nav-tab active" id="wl-tab" onclick="goWorklist()">Worklist <span class="nav-badge">48</span></div>
+    <div class="nav-tab" onclick="goWorklist()">Patient Search</div>
+  </div>
+  <div class="nav-right">
+    <span class="nav-org">Slocum Orthopaedics</span>
+    <div class="nav-avatar">KN</div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     WORKLIST VIEW
+══════════════════════════════════════════ -->
+<div id="v-wl" class="view active">
+  <div class="page-wrap">
+    <h1 class="page-title">My Worklist</h1>
+    <p class="page-sub">Sorted by risk · High-risk first — oldest aging — highest balance</p>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+        <input class="search-input" type="text" placeholder="Search by patient name or date of birth...">
+      </div>
+      <span class="count">Showing 48 accounts</span>
+    </div>
+
+    <div class="filter-bar">
+      <div class="chip" onclick="this.classList.toggle('on')">Risk: All <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+      <div class="chip" onclick="this.classList.toggle('on')">Aging: All <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+      <div class="chip" onclick="this.classList.toggle('on')">Stage: All <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+      <div class="chip" onclick="this.classList.toggle('on')">Plan Status: All <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+      <div class="chip" onclick="this.classList.toggle('on')">Balance: All <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+      <button class="clear-btn" onclick="document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'))">✕ Clear filters</button>
+    </div>
+
+    <div class="tbl-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Risk</th>
+            <th>Patient / Guarantor</th>
+            <th>Balance</th>
+            <th>Payment Status</th>
+            <th>Aging</th>
+            <th>Last Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onclick="goPatient('smith')">
+            <td><div class="risk-dot-cell r-high"><span class="rdot"></span>High</div></td>
+            <td><div class="pt-name">Smith, John</div><div class="pt-guar">Guarantor: Smith, John</div></td>
+            <td><div class="bal">$3,420</div><div class="bal-sub">$1,620 self-pay · $1,800 on plan</div></td>
+            <td><span class="badge b-yellow">4th Stmt · Self-Pay Aging</span></td>
+            <td><span class="aging ag-red">90–120d</span></td>
+            <td><span class="lc">14 days ago</span></td>
+          </tr>
+          <tr>
+            <td><div class="risk-dot-cell r-high"><span class="rdot"></span>High</div></td>
+            <td><div class="pt-name">Martinez, Isabel</div><div class="pt-guar">Guarantor: Martinez, Isabel</div></td>
+            <td><div class="bal">$2,840</div></td>
+            <td><span class="badge b-red">⚠ Defaulted · 190 Days · $0 Paid</span></td>
+            <td><span class="aging ag-red">125+d</span></td>
+            <td><span class="lc lc-red">Never responded</span></td>
+          </tr>
+          <tr>
+            <td><div class="risk-dot-cell r-high"><span class="rdot"></span>High</div></td>
+            <td><div class="pt-name">Patel, Priya</div><div class="pt-guar">Guarantor: Patel, Raj</div></td>
+            <td><div class="bal">$1,890</div></td>
+            <td><span class="badge b-red">Claim Denied</span></td>
+            <td><span class="aging" style="color:var(--subtle)">—</span></td>
+            <td><span class="lc">3 days ago</span></td>
+          </tr>
+          <tr>
+            <td><div class="risk-dot-cell r-med"><span class="rdot"></span>Medium</div></td>
+            <td><div class="pt-name">Rodriguez, Carlos</div><div class="pt-guar">Guarantor: Rodriguez, Carlos</div></td>
+            <td><div class="bal">$4,100</div></td>
+            <td><span class="badge b-yellow">60-Mo Plan · At Risk · 2 Missed</span></td>
+            <td><span class="aging ag-orange">60–90d</span></td>
+            <td><span class="lc">11 days ago</span></td>
+          </tr>
+          <tr>
+            <td><div class="risk-dot-cell r-med"><span class="rdot"></span>Medium</div></td>
+            <td><div class="pt-name">Williams, Tom</div><div class="pt-guar">Guarantor: Williams, Tom</div></td>
+            <td><div class="bal">$3,420</div></td>
+            <td><span class="badge b-yellow">Pay in Four · Installment 3 Overdue</span></td>
+            <td><span class="aging ag-orange">30–60d</span></td>
+            <td><span class="lc lc-green">Today</span></td>
+          </tr>
+          <tr>
+            <td><div class="risk-dot-cell r-med"><span class="rdot"></span>Medium</div></td>
+            <td><div class="pt-name">Johnson, Maria</div><div class="pt-guar">Guarantor: Johnson, Maria</div></td>
+            <td><div class="bal">$740</div></td>
+            <td><span class="badge b-grey">3rd Stmt Sent · No Response</span></td>
+            <td><span class="aging ag-orange">60–90d</span></td>
+            <td><span class="lc">6 days ago</span></td>
+          </tr>
+          <tr onclick="goPatient('nguyen')">
+            <td><div class="risk-dot-cell r-low"><span class="rdot"></span>Low</div></td>
+            <td><div class="pt-name">Nguyen, Kim</div><div class="pt-guar">Guarantor: Nguyen, Kim</div></td>
+            <td><div class="bal">$2,880</div><div class="bal-sub">Pre-service estimate</div></td>
+            <td><span class="badge b-purple">Pre-Service · 24-Mo Plan Committed</span></td>
+            <td><span class="aging ag-purple">Pre-Svc</span></td>
+            <td><span class="lc">2 days ago</span></td>
+          </tr>
+          <tr>
+            <td><div class="risk-dot-cell r-low"><span class="rdot"></span>Low</div></td>
+            <td><div class="pt-name">Thompson, Sarah</div><div class="pt-guar">Guarantor: Thompson, Sarah</div></td>
+            <td><div class="bal">$2,160</div></td>
+            <td><span class="badge b-green">24-Mo Plan · Month 5 · On Track</span></td>
+            <td><span class="aging ag-green">Current</span></td>
+            <td><span class="lc">3 days ago</span></td>
+          </tr>
+          <tr>
+            <td><div class="risk-dot-cell r-low"><span class="rdot"></span>Low</div></td>
+            <td><div class="pt-name">Garcia, Elena</div><div class="pt-guar">Guarantor: Garcia, Elena</div></td>
+            <td><div class="bal">$3,420</div></td>
+            <td><span class="badge b-green">12-Mo Plan · Month 4 · On Track</span></td>
+            <td><span class="aging ag-green">Current</span></td>
+            <td><span class="lc">5 days ago</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PATIENT DETAIL — JOHN SMITH
+══════════════════════════════════════════ -->
+<div id="v-smith" class="view">
+  <div class="detail-wrap">
+    <div class="detail-nav">
+      <button class="back-btn" onclick="goWorklist()">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 2L4 7L9 12"/></svg>
+        Back to Worklist
+      </button>
+      <div class="pn-btns">
+        <button class="pn-btn">← Prev</button>
+        <button class="pn-btn" onclick="goPatient('nguyen')">Next →</button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="hcard">
+      <div class="hname-row">
+        <span class="hname">John Smith</span>
+        <span class="risk-pill rp-high">● High Risk</span>
+      </div>
+      <div class="hmeta">DOB: March 15, 1978 · Guarantor: John Smith · Memorial Hermann</div>
+
+      <div class="contact-grid">
+        <div class="ci"><label>Phone</label><value>(555) 234-5678</value></div>
+        <div class="ci"><label>Email</label><value>jsmith@email.com</value></div>
+        <div class="ci"><label>Insurance</label><value>BlueCross BlueShield</value></div>
+        <div class="ci"><label>Auto-Pay</label><value><span class="enrolled">✓ Enrolled</span></value></div>
+        <div class="ci"><label>Statements</label><value>📄 Paper</value></div>
+      </div>
+
+      <div class="bal-action">
+        <div>
+          <div class="total-lbl">Total Responsibility</div>
+          <div class="total-amt">$3,420</div>
+          <div class="bal-line"><span class="bldot" style="background:var(--blue-100)"></span><span>Self-Pay Balance — 4th Statement, 90–120 days</span><span class="bl-val">$1,620</span></div>
+          <div class="bal-line"><span class="bldot" style="background:var(--green-100)"></span><span>On 12-Month Plan — Month 6 of 12, On Track</span><span class="bl-val">$1,800</span></div>
+        </div>
+        <div class="qa-box">
+          <div class="qa-grid">
+            <button class="qa-btn qa-primary span3">📞 Initiate Outreach</button>
+            <button class="qa-btn">📋 Log Contact</button>
+            <button class="qa-btn">💳 Offer Plan</button>
+            <button class="qa-btn">⬆ Escalate</button>
+            <button class="qa-btn">🎫 Support Ticket</button>
+            <button class="qa-btn qa-danger span2">🚩 Flag Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lifecycle -->
+    <div class="lc-card">
+      <div class="lc-title">Patient Lifecycle</div>
+      <div class="steps">
+        <div class="step done">
+          <div class="step-circ"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4.5 7.5L8.5 3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span class="step-lbl">Pre-Service</span>
+        </div>
+        <div class="step done">
+          <div class="step-circ"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4.5 7.5L8.5 3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span class="step-lbl">At Service</span>
+        </div>
+        <div class="step done">
+          <div class="step-circ"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4.5 7.5L8.5 3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span class="step-lbl">Claim</span>
+        </div>
+        <div class="step done">
+          <div class="step-circ"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4.5 7.5L8.5 3" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span class="step-lbl">Bill Drop</span>
+        </div>
+        <div class="step cur">
+          <div class="step-circ"><div class="step-inner-dot"></div></div>
+          <span class="step-lbl">Collections</span>
+        </div>
+        <div class="step">
+          <div class="step-circ"></div>
+          <span class="step-lbl">Closed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-col -->
+    <div class="two-col">
+      <div class="main-col">
+
+        <!-- Bill 1 -->
+        <div class="bill-card">
+          <div class="bill-hdr">
+            <div>
+              <div class="bill-name">Bill #1 — Self-Pay Balance</div>
+              <div class="bill-meta">Service: Feb 14, 2026 · Memorial Hermann · No payment option selected</div>
+            </div>
+            <div style="text-align:right">
+              <div class="bill-amt">$1,620</div>
+              <div class="tag-red">90–120 days</div>
+            </div>
+          </div>
+          <div class="stmt-lbl">Statement Attempts</div>
+          <div class="stmts">
+            <div class="ss sent"><div class="sc">1st</div><span class="sl">Jan 28</span></div>
+            <div class="ss sent"><div class="sc">2nd</div><span class="sl">Feb 14</span></div>
+            <div class="ss sent"><div class="sc">3rd</div><span class="sl">Feb 28</span></div>
+            <div class="ss cur"><div class="sc">4th</div><span class="sl">Mar 28</span></div>
+            <div class="ss"><div class="sc">5th</div><span class="sl">&nbsp;</span></div>
+            <div class="ss"><div class="sc">6th</div><span class="sl">&nbsp;</span></div>
+          </div>
+        </div>
+
+        <!-- Bill 2 -->
+        <div class="bill-card">
+          <div class="bill-hdr">
+            <div>
+              <div class="bill-name">Bill #2 — 12-Month Plan <span style="font-size:11px;color:var(--green-100);font-weight:400">(0% Interest)</span></div>
+              <div class="bill-meta">Service: Oct 10, 2025 · Memorial Hermann · Enrolled at bill drop</div>
+            </div>
+            <div style="text-align:right">
+              <div class="bill-amt">$1,800</div>
+              <div class="tag-green">✓ On Track</div>
+            </div>
+          </div>
+          <div class="plan-grid">
+            <div class="pg-item"><label>Monthly Payment</label><value>$150/mo</value></div>
+            <div class="pg-item"><label>Progress</label><value>Month 6 of 12</value></div>
+            <div class="pg-item"><label>Paid to Date</label><value>$900</value></div>
+            <div class="pg-item"><label>Remaining</label><value>$900</value></div>
+          </div>
+          <div class="prog-bg"><div class="prog-fill" style="width:50%"></div></div>
+          <div class="prog-lbl">50% paid</div>
+          <div class="next-pmt">Next payment: May 1, 2026 · Auto-Pay enrolled</div>
+        </div>
+
+        <!-- Risk Flags -->
+        <div class="riskcard">
+          <div class="card-hdr"><span class="card-ttl">Risk Flags</span><span class="card-sub">Rule-based</span></div>
+          <div class="flag-item"><span class="fdot fdot-red"></span>Copay not collected at service</div>
+          <div class="flag-item"><span class="fdot fdot-red"></span>No payment activity on Bill #1 since drop</div>
+          <div class="flag-item"><span class="fdot fdot-red"></span>Bill #1 — 90+ days outstanding</div>
+        </div>
+      </div>
+
+      <!-- Sidebar timeline -->
+      <div class="sidebar">
+        <div class="card-hdr"><span class="card-ttl">Activity Timeline</span></div>
+        <div>
+          <div class="tl-item"><div class="tl-icon ti-alert">🔴</div><div><div class="tl-ttl alert">Account flagged as defaulted — escalation required</div><div class="tl-meta">Apr 10, 2026 · System</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">6th (final) statement sent — no response</div><div class="tl-meta">Jan 1, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-call">📞</div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Dec 20, 2025 · A. Torres</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">5th statement sent — no response</div><div class="tl-meta">Dec 15, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-call">📞</div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Dec 5, 2025 · A. Torres</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">4th statement sent — no response</div><div class="tl-meta">Dec 1, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">3rd statement sent — no response</div><div class="tl-meta">Nov 15, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">2nd statement sent — no response</div><div class="tl-meta">Nov 1, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">1st statement sent</div><div class="tl-meta">Oct 15, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-svc">🏥</div><div><div class="tl-ttl">Service delivered — Memorial Hermann</div><div class="tl-meta">Oct 2, 2025</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PATIENT DETAIL — KIM NGUYEN
+══════════════════════════════════════════ -->
+<div id="v-nguyen" class="view">
+  <div class="detail-wrap">
+    <div class="detail-nav">
+      <button class="back-btn" onclick="goWorklist()">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 2L4 7L9 12"/></svg>
+        Back to Worklist
+      </button>
+      <div class="pn-btns">
+        <button class="pn-btn" onclick="goPatient('smith')">← Prev</button>
+        <button class="pn-btn">Next →</button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="hcard">
+      <div class="hname-row">
+        <span class="hname">Kim Nguyen</span>
+        <span class="risk-pill rp-low">● Low Risk</span>
+        <span class="risk-pill rp-pre" style="margin-left:4px">Pre-Service</span>
+      </div>
+      <div class="hmeta">DOB: June 30, 1988 · Guarantor: Kim Nguyen · Slocum Orthopaedics</div>
+
+      <div class="contact-grid">
+        <div class="ci"><label>Phone</label><value>(555) 778-9900</value></div>
+        <div class="ci"><label>Email</label><value>knguyen@email.com</value></div>
+        <div class="ci"><label>Insurance</label><value>BCBS</value></div>
+        <div class="ci"><label>Auto-Pay</label><value><span class="enrolled">✓ Enrolled</span></value></div>
+        <div class="ci"><label>Statements</label><value>💻 Digital</value></div>
+      </div>
+
+      <div class="bal-action">
+        <div>
+          <div class="total-lbl">Pre-Service Estimate</div>
+          <div class="total-amt">$2,880</div>
+          <div class="bal-line"><span class="bldot" style="background:var(--purple-100)"></span><span>24-Month Plan committed — $120/mo starting after bill drop</span><span class="bl-val" style="color:var(--purple-100)">0% interest</span></div>
+          <div style="font-size:11px;color:var(--subtle);margin-top:6px;font-style:italic">Estimate only — final balance confirmed after service and claim adjudication</div>
+        </div>
+        <div class="qa-box">
+          <div class="qa-grid">
+            <button class="qa-btn qa-primary span2">📞 Contact Patient</button>
+            <button class="qa-btn">📋 Log Contact</button>
+            <button class="qa-btn">✏️ Modify Plan</button>
+            <button class="qa-btn">📊 View Estimate</button>
+            <button class="qa-btn">🎫 Support Ticket</button>
+            <button class="qa-btn qa-danger">🚩 Flag</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lifecycle (pre-service active) -->
+    <div class="lc-card">
+      <div class="lc-title">Patient Lifecycle</div>
+      <div class="steps">
+        <div class="step cur"><div class="step-circ"><div class="step-inner-dot"></div></div><span class="step-lbl">Pre-Service</span></div>
+        <div class="step"><div class="step-circ"></div><span class="step-lbl">At Service</span></div>
+        <div class="step"><div class="step-circ"></div><span class="step-lbl">Claim</span></div>
+        <div class="step"><div class="step-circ"></div><span class="step-lbl">Bill Drop</span></div>
+        <div class="step"><div class="step-circ"></div><span class="step-lbl">Collections</span></div>
+        <div class="step"><div class="step-circ"></div><span class="step-lbl">Closed</span></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="main-col">
+
+        <!-- Pre-service plan card -->
+        <div class="ps-card">
+          <div class="bill-hdr" style="margin-bottom:12px">
+            <div>
+              <div class="bill-name">Pre-Service Estimate — 24-Month Plan Committed</div>
+              <div class="bill-meta">Scheduled service: April 25, 2026 · Slocum Orthopaedics · Right knee arthroscopy</div>
+            </div>
+            <div style="text-align:right">
+              <div class="amt-tilde">~$2,880</div>
+              <span class="awaiting">Awaiting Service</span>
+            </div>
+          </div>
+
+          <div class="plan-grid" style="margin-bottom:12px">
+            <div class="pg-item"><label>Est. Balance</label><value>~$2,880</value></div>
+            <div class="pg-item"><label>Monthly Payment</label><value style="color:var(--blue-100)">$120/mo</value></div>
+            <div class="pg-item"><label>Plan Length</label><value>24 months</value></div>
+            <div class="pg-item"><label>Interest</label><value style="color:var(--green-100)">0%</value></div>
+          </div>
+
+          <div class="note-box">Plan begins after service and claim adjudication. If final balance differs from estimate, monthly payment will be recalculated. Auto-Pay enrolled for first payment on bill drop date.</div>
+
+          <div class="opts-lbl">Payment Options Offered at Pre-Service</div>
+          <div class="opts-grid">
+            <div class="opt"><div class="opt-lbl">Pay in Full</div><div class="opt-amt">~$2,880</div></div>
+            <div class="opt"><div class="opt-lbl">Pay in Four</div><div class="opt-amt">~$720×4</div><div class="opt-int">90 days</div></div>
+            <div class="opt"><div class="opt-lbl">12-Month</div><div class="opt-amt">~$240/mo</div><div class="opt-int">0% interest</div></div>
+            <div class="opt sel"><div class="opt-lbl">24-Month ✓</div><div class="opt-amt">~$120/mo</div><div class="opt-int">0% interest</div><span class="opt-check">Selected</span></div>
+            <div class="opt"><div class="opt-lbl">60-Month</div><div class="opt-amt">~$48/mo</div><div class="opt-int">0% interest</div></div>
+          </div>
+        </div>
+
+        <!-- Risk flags (none) -->
+        <div class="riskcard">
+          <div class="card-hdr"><span class="card-ttl">Risk Flags</span><span class="card-sub">Rule-based · No issues</span></div>
+          <div class="flag-item"><span class="fdot fdot-green"></span>No risk flags — pre-service plan committed, auto-pay enrolled</div>
+        </div>
+      </div>
+
+      <!-- Sidebar timeline -->
+      <div class="sidebar">
+        <div class="card-hdr"><span class="card-ttl">Activity Timeline</span></div>
+        <div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">Bill #1 — 4th statement sent</div><div class="tl-meta">Mar 28, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-call">📞</div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Mar 14, 2026 · A. Torres</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-pay">💳</div><div><div class="tl-ttl">Bill #2 — Monthly payment received · $150</div><div class="tl-meta">Apr 1, 2026 · Auto-Pay</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">Bill #1 — 3rd statement sent</div><div class="tl-meta">Feb 28, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">Bill #1 — 2nd statement sent</div><div class="tl-meta">Feb 14, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-pay">💳</div><div><div class="tl-ttl">Bill #2 — Monthly payment received · $150</div><div class="tl-meta">Mar 1, 2026 · Auto-Pay</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-svc">🏥</div><div><div class="tl-ttl">Service delivered — Memorial Hermann</div><div class="tl-meta">Feb 14, 2026 (Bill #1)</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function goWorklist() {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('v-wl').classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  function goPatient(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('v-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
