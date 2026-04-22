@@ -163,7 +163,6 @@
     .ci value { display: block; font-size: 13px; }
     .enrolled { color: var(--green-100); font-weight: 700; }
 
-    .bal-action { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
     .total-lbl { font-size: 10px; font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
     .total-amt { font-size: 26px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
     .bal-line { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--subtle); margin-bottom: 3px; }
@@ -171,21 +170,14 @@
     .bl-val { margin-left: auto; font-weight: 700; color: var(--text); }
 
     /* Quick actions */
-    .qa-box { background: var(--grey-0); border: 1px solid var(--divider); border-radius: 8px; padding: 14px; min-width: 340px; }
-    .qa-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-    .qa-btn {
+    .action-row { display: flex; gap: 6px; padding-top: 14px; border-top: 1px solid var(--divider); margin-top: 14px; flex-wrap: wrap; }
+    .act-btn {
       height: 32px; border-radius: 6px; border: 1px solid var(--divider); background: var(--white);
-      font-family: var(--font); font-size: 11px; color: var(--text); cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 4px;
-      font-weight: 600; transition: all 0.15s; padding: 0 6px; white-space: nowrap;
+      font-family: var(--font); font-size: 12px; color: var(--text); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      font-weight: 600; transition: all 0.15s; padding: 0 12px; white-space: nowrap;
     }
-    .qa-btn:hover { background: var(--grey-0); border-color: var(--teal-50); }
-    .qa-primary { background: var(--blue-100); color: var(--white); border-color: var(--blue-100); }
-    .qa-primary:hover { background: var(--blue-150); border-color: var(--blue-150); }
-    .qa-danger { border-color: var(--red-100); color: var(--red-100); }
-    .qa-danger:hover { background: var(--red-10); }
-    .span3 { grid-column: span 3; }
-    .span2 { grid-column: span 2; }
+    .act-btn:hover { background: var(--grey-0); border-color: var(--teal-50); }
 
     /* Lifecycle */
     .lc-card { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 16px 20px; margin-bottom: 14px; }
@@ -443,23 +435,19 @@
         <div class="ci"><label>Statements</label><value>📄 Paper</value></div>
       </div>
 
-      <div class="bal-action">
-        <div>
-          <div class="total-lbl">Total Responsibility</div>
-          <div class="total-amt">$3,420</div>
-          <div class="bal-line"><span class="bldot" style="background:var(--blue-100)"></span><span>Self-Pay Balance — 4th Statement, 90–120 days</span><span class="bl-val">$1,620</span></div>
-          <div class="bal-line"><span class="bldot" style="background:var(--green-100)"></span><span>On 12-Month Plan — Month 6 of 12, On Track</span><span class="bl-val">$1,800</span></div>
-        </div>
-        <div class="qa-box">
-          <div class="qa-grid">
-            <button class="qa-btn qa-primary span3">📞 Initiate Outreach</button>
-            <button class="qa-btn">📋 Log Contact</button>
-            <button class="qa-btn">💳 Offer Plan</button>
-            <button class="qa-btn">⬆ Escalate</button>
-            <button class="qa-btn">🎫 Support Ticket</button>
-            <button class="qa-btn qa-danger span2">🚩 Flag Account</button>
-          </div>
-        </div>
+      <div>
+        <div class="total-lbl">Total Responsibility</div>
+        <div class="total-amt">$3,420</div>
+        <div class="bal-line"><span class="bldot" style="background:var(--blue-100)"></span><span>Self-Pay Balance — 4th Statement, 90–120 days</span><span class="bl-val">$1,620</span></div>
+        <div class="bal-line"><span class="bldot" style="background:var(--green-100)"></span><span>On 12-Month Plan — Month 6 of 12, On Track</span><span class="bl-val">$1,800</span></div>
+      </div>
+      <div class="action-row">
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 11.3l-3-2a1 1 0 00-1.2.1l-1.2 1.2a8.6 8.6 0 01-3.9-3.9l1.2-1.2a1 1 0 00.1-1.2l-2-3A1 1 0 003.5 1L2 2.5C1 3.5 1.5 6.7 5.1 10.9S13.5 16 14.5 15l1.5-1.5a1 1 0 00-.3-1.2z"/></svg> Initiate Outreach</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="8" height="11" rx="1"/><path d="M6 3V2a1 1 0 011-1h2a1 1 0 011 1v1M6 8h4M6 11h3"/></svg> Log Contact</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 8h14M4 12h2"/></svg> Offer Plan</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v12M3 7l5-5 5 5"/></svg> Escalate</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8.5L8.5 1H15v6.5L7.5 15 1 8.5z"/><circle cx="12" cy="4" r="1" fill="currentColor"/></svg> Support Ticket</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v12M3 2h9l-3 4 3 4H3"/></svg> Flag Account</button>
       </div>
     </div>
 
@@ -606,23 +594,19 @@
         <div class="ci"><label>Statements</label><value>💻 Digital</value></div>
       </div>
 
-      <div class="bal-action">
-        <div>
-          <div class="total-lbl">Pre-Service Estimate</div>
-          <div class="total-amt">$2,880</div>
-          <div class="bal-line"><span class="bldot" style="background:var(--purple-100)"></span><span>24-Month Plan committed — $120/mo starting after bill drop</span><span class="bl-val" style="color:var(--purple-100)">0% interest</span></div>
-          <div style="font-size:11px;color:var(--subtle);margin-top:6px;font-style:italic">Estimate only — final balance confirmed after service and claim adjudication</div>
-        </div>
-        <div class="qa-box">
-          <div class="qa-grid">
-            <button class="qa-btn qa-primary span2">📞 Contact Patient</button>
-            <button class="qa-btn">📋 Log Contact</button>
-            <button class="qa-btn">✏️ Modify Plan</button>
-            <button class="qa-btn">📊 View Estimate</button>
-            <button class="qa-btn">🎫 Support Ticket</button>
-            <button class="qa-btn qa-danger">🚩 Flag</button>
-          </div>
-        </div>
+      <div>
+        <div class="total-lbl">Pre-Service Estimate</div>
+        <div class="total-amt">$2,880</div>
+        <div class="bal-line"><span class="bldot" style="background:var(--purple-100)"></span><span>24-Month Plan committed — $120/mo starting after bill drop</span><span class="bl-val" style="color:var(--purple-100)">0% interest</span></div>
+        <div style="font-size:11px;color:var(--subtle);margin-top:6px;font-style:italic">Estimate only — final balance confirmed after service and claim adjudication</div>
+      </div>
+      <div class="action-row">
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 11.3l-3-2a1 1 0 00-1.2.1l-1.2 1.2a8.6 8.6 0 01-3.9-3.9l1.2-1.2a1 1 0 00.1-1.2l-2-3A1 1 0 003.5 1L2 2.5C1 3.5 1.5 6.7 5.1 10.9S13.5 16 14.5 15l1.5-1.5a1 1 0 00-.3-1.2z"/></svg> Contact Patient</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="8" height="11" rx="1"/><path d="M6 3V2a1 1 0 011-1h2a1 1 0 011 1v1M6 8h4M6 11h3"/></svg> Log Contact</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2l3 3L5 14H2v-3z"/></svg> Modify Plan</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14V8M6 14V4M10 14V10M14 14V6"/></svg> View Estimate</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8.5L8.5 1H15v6.5L7.5 15 1 8.5z"/><circle cx="12" cy="4" r="1" fill="currentColor"/></svg> Support Ticket</button>
+        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v12M3 2h9l-3 4 3 4H3"/></svg> Flag</button>
       </div>
     </div>
 
