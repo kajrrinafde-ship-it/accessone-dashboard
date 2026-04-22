@@ -242,12 +242,12 @@
     .sidebar { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 16px; position: sticky; top: 66px; max-height: calc(100vh - 90px); overflow-y: auto; }
     .tl-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--grey-1); }
     .tl-item:last-child { border-bottom: none; }
-    .tl-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; margin-top: 1px; }
-    .ti-alert { background: var(--red-20); }
-    .ti-stmt { background: var(--blue-20); }
-    .ti-call { background: var(--yellow-20); }
-    .ti-pay { background: var(--green-20); }
-    .ti-svc { background: var(--purple-50); }
+    .tl-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .ti-alert { background: var(--red-20); color: var(--red-100); }
+    .ti-stmt { background: var(--blue-20); color: var(--blue-100); }
+    .ti-call { background: var(--yellow-20); color: var(--yellow-120); }
+    .ti-pay { background: var(--green-20); color: var(--green-100); }
+    .ti-svc { background: var(--purple-50); color: var(--purple-100); }
     .tl-ttl { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.3; }
     .tl-ttl.alert { color: var(--red-100); }
     .tl-meta { font-size: 11px; color: var(--subtle); margin-top: 1px; }
@@ -337,7 +337,7 @@
             <td><div class="risk-dot-cell r-high"><span class="rdot"></span>High</div></td>
             <td><div class="pt-name">Martinez, Isabel</div><div class="pt-guar">Guarantor: Martinez, Isabel</div></td>
             <td><div class="bal">$2,840</div></td>
-            <td><span class="badge b-red">⚠ Defaulted · 190 Days · $0 Paid</span></td>
+            <td><span class="badge b-red">Defaulted · 190 Days · $0 Paid</span></td>
             <td><span class="aging ag-red">125+d</span></td>
             <td><span class="lc lc-red">Never responded</span></td>
           </tr>
@@ -432,7 +432,7 @@
         <div class="ci"><label>Email</label><value>jsmith@email.com</value></div>
         <div class="ci"><label>Insurance</label><value>BlueCross BlueShield</value></div>
         <div class="ci"><label>Auto-Pay</label><value><span class="enrolled">✓ Enrolled</span></value></div>
-        <div class="ci"><label>Statements</label><value>📄 Paper</value></div>
+        <div class="ci"><label>Statements</label><value>Paper</value></div>
       </div>
 
       <div>
@@ -545,16 +545,16 @@
       <div class="sidebar">
         <div class="card-hdr"><span class="card-ttl">Activity Timeline</span></div>
         <div>
-          <div class="tl-item"><div class="tl-icon ti-alert">🔴</div><div><div class="tl-ttl alert">Account flagged as defaulted — escalation required</div><div class="tl-meta">Apr 10, 2026 · System</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">6th (final) statement sent — no response</div><div class="tl-meta">Jan 1, 2026</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-call">📞</div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Dec 20, 2025 · A. Torres</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">5th statement sent — no response</div><div class="tl-meta">Dec 15, 2025</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-call">📞</div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Dec 5, 2025 · A. Torres</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">4th statement sent — no response</div><div class="tl-meta">Dec 1, 2025</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">3rd statement sent — no response</div><div class="tl-meta">Nov 15, 2025</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">2nd statement sent — no response</div><div class="tl-meta">Nov 1, 2025</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">1st statement sent</div><div class="tl-meta">Oct 15, 2025</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-svc">🏥</div><div><div class="tl-ttl">Service delivered — Memorial Hermann</div><div class="tl-meta">Oct 2, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-alert"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5M8 11v.1"/></svg></div><div><div class="tl-ttl alert">Account flagged as defaulted — escalation required</div><div class="tl-meta">Apr 10, 2026 · System</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">6th (final) statement sent — no response</div><div class="tl-meta">Jan 1, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-call"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 11.3l-3-2a1 1 0 00-1.2.1l-1.2 1.2a8.6 8.6 0 01-3.9-3.9l1.2-1.2a1 1 0 00.1-1.2l-2-3A1 1 0 003.5 1L2 2.5C1 3.5 1.5 6.7 5.1 10.9S13.5 16 14.5 15l1.5-1.5a1 1 0 00-.3-1.2z"/></svg></div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Dec 20, 2025 · A. Torres</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">5th statement sent — no response</div><div class="tl-meta">Dec 15, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-call"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 11.3l-3-2a1 1 0 00-1.2.1l-1.2 1.2a8.6 8.6 0 01-3.9-3.9l1.2-1.2a1 1 0 00.1-1.2l-2-3A1 1 0 003.5 1L2 2.5C1 3.5 1.5 6.7 5.1 10.9S13.5 16 14.5 15l1.5-1.5a1 1 0 00-.3-1.2z"/></svg></div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Dec 5, 2025 · A. Torres</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">4th statement sent — no response</div><div class="tl-meta">Dec 1, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">3rd statement sent — no response</div><div class="tl-meta">Nov 15, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">2nd statement sent — no response</div><div class="tl-meta">Nov 1, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">1st statement sent</div><div class="tl-meta">Oct 15, 2025</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-svc"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 4v8M4 8h8"/></svg></div><div><div class="tl-ttl">Service delivered — Memorial Hermann</div><div class="tl-meta">Oct 2, 2025</div></div></div>
         </div>
       </div>
     </div>
@@ -591,7 +591,7 @@
         <div class="ci"><label>Email</label><value>knguyen@email.com</value></div>
         <div class="ci"><label>Insurance</label><value>BCBS</value></div>
         <div class="ci"><label>Auto-Pay</label><value><span class="enrolled">✓ Enrolled</span></value></div>
-        <div class="ci"><label>Statements</label><value>💻 Digital</value></div>
+        <div class="ci"><label>Statements</label><value>Digital</value></div>
       </div>
 
       <div>
@@ -669,13 +669,13 @@
       <div class="sidebar">
         <div class="card-hdr"><span class="card-ttl">Activity Timeline</span></div>
         <div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">Bill #1 — 4th statement sent</div><div class="tl-meta">Mar 28, 2026</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-call">📞</div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Mar 14, 2026 · A. Torres</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-pay">💳</div><div><div class="tl-ttl">Bill #2 — Monthly payment received · $150</div><div class="tl-meta">Apr 1, 2026 · Auto-Pay</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">Bill #1 — 3rd statement sent</div><div class="tl-meta">Feb 28, 2026</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-stmt">📄</div><div><div class="tl-ttl">Bill #1 — 2nd statement sent</div><div class="tl-meta">Feb 14, 2026</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-pay">💳</div><div><div class="tl-ttl">Bill #2 — Monthly payment received · $150</div><div class="tl-meta">Mar 1, 2026 · Auto-Pay</div></div></div>
-          <div class="tl-item"><div class="tl-icon ti-svc">🏥</div><div><div class="tl-ttl">Service delivered — Memorial Hermann</div><div class="tl-meta">Feb 14, 2026 (Bill #1)</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">Bill #1 — 4th statement sent</div><div class="tl-meta">Mar 28, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-call"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 11.3l-3-2a1 1 0 00-1.2.1l-1.2 1.2a8.6 8.6 0 01-3.9-3.9l1.2-1.2a1 1 0 00.1-1.2l-2-3A1 1 0 003.5 1L2 2.5C1 3.5 1.5 6.7 5.1 10.9S13.5 16 14.5 15l1.5-1.5a1 1 0 00-.3-1.2z"/></svg></div><div><div class="tl-ttl">Outreach attempt — no answer</div><div class="tl-meta">Mar 14, 2026 · A. Torres</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-pay"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 8h14M4 12h2"/></svg></div><div><div class="tl-ttl">Bill #2 — Monthly payment received · $150</div><div class="tl-meta">Apr 1, 2026 · Auto-Pay</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">Bill #1 — 3rd statement sent</div><div class="tl-meta">Feb 28, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-stmt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg></div><div><div class="tl-ttl">Bill #1 — 2nd statement sent</div><div class="tl-meta">Feb 14, 2026</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-pay"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 8h14M4 12h2"/></svg></div><div><div class="tl-ttl">Bill #2 — Monthly payment received · $150</div><div class="tl-meta">Mar 1, 2026 · Auto-Pay</div></div></div>
+          <div class="tl-item"><div class="tl-icon ti-svc"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 4v8M4 8h8"/></svg></div><div><div class="tl-ttl">Service delivered — Memorial Hermann</div><div class="tl-meta">Feb 14, 2026 (Bill #1)</div></div></div>
         </div>
       </div>
     </div>
