@@ -269,6 +269,72 @@
     .opt-int { font-size: 10px; color: var(--subtle); margin-top: 2px; }
     .opt.sel .opt-int { color: var(--blue-100); }
     .opt-check { display: block; font-size: 10px; color: var(--blue-100); font-weight: 700; margin-top: 3px; }
+
+    /* === MODALS === */
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; }
+    .modal-backdrop.open { display: flex; }
+    .modal-card { background: var(--white); border-radius: 10px; width: 480px; max-width: calc(100vw - 32px); box-shadow: 0 8px 32px rgba(0,0,0,0.18); overflow: hidden; }
+    .modal-hdr { padding: 18px 20px 14px; border-bottom: 1px solid var(--divider); }
+    .modal-title { font-size: 15px; font-weight: 900; }
+    .modal-sub { font-size: 12px; color: var(--subtle); margin-top: 2px; }
+    .modal-body { padding: 18px 20px; }
+    .modal-footer { padding: 14px 20px; border-top: 1px solid var(--divider); display: flex; justify-content: flex-end; gap: 8px; }
+    .form-row { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+    .form-input { width: 100%; height: 34px; border: 1px solid var(--divider); border-radius: 6px; padding: 0 10px; font-family: var(--font); font-size: 13px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.15s; }
+    .form-input:focus { border-color: var(--blue-100); box-shadow: 0 0 0 2px rgba(22,119,184,0.12); }
+    .radio-group { display: flex; gap: 8px; }
+    .radio-opt { flex: 1; border: 1.5px solid var(--divider); border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 6px; transition: all 0.15s; }
+    .radio-opt:hover { border-color: var(--blue-100); }
+    .radio-opt.sel { border-color: var(--blue-100); background: var(--blue-20); color: var(--blue-170); }
+    .radio-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--grey-2); flex-shrink: 0; transition: all 0.15s; }
+    .radio-opt.sel .radio-dot { border-color: var(--blue-100); background: var(--blue-100); }
+    .two-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .modal-success { text-align: center; padding: 24px 0 8px; }
+    .success-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--green-20); color: var(--green-100); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .success-ttl { font-size: 15px; font-weight: 900; margin-bottom: 4px; }
+    .success-sub { font-size: 12px; color: var(--subtle); }
+    .enroll-opts { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin-bottom: 14px; }
+    .enroll-opt { border: 2px solid var(--grey-2); border-radius: 6px; padding: 8px 6px; text-align: center; cursor: pointer; transition: all 0.15s; }
+    .enroll-opt:hover { border-color: var(--teal-50); }
+    .enroll-opt.sel { border-color: var(--blue-100); background: var(--blue-20); }
+    .enroll-opt-lbl { font-size: 10px; color: var(--subtle); margin-bottom: 2px; }
+    .enroll-opt.sel .enroll-opt-lbl { color: var(--blue-100); }
+    .enroll-opt-amt { font-size: 11px; font-weight: 700; color: var(--text); }
+    .enroll-opt.sel .enroll-opt-amt { color: var(--blue-170); }
+    .autopay-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: var(--grey-0); border-radius: 6px; margin-top: 12px; }
+    .autopay-lbl { font-size: 13px; font-weight: 600; }
+    .autopay-sub { font-size: 11px; color: var(--subtle); margin-top: 1px; }
+    .toggle { width: 36px; height: 20px; border-radius: 10px; background: var(--grey-2); cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .toggle.on { background: var(--blue-100); }
+    .toggle-knob { width: 14px; height: 14px; border-radius: 50%; background: white; position: absolute; top: 3px; left: 3px; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle.on .toggle-knob { left: 19px; }
+    .btn-primary { height: 34px; padding: 0 16px; background: var(--blue-100); color: white; border: none; border-radius: 6px; font-family: var(--font); font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+    .btn-primary:hover { background: var(--blue-150); }
+    .btn-secondary { height: 34px; padding: 0 16px; background: var(--white); color: var(--text); border: 1px solid var(--divider); border-radius: 6px; font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .btn-secondary:hover { background: var(--grey-0); border-color: var(--teal-50); }
+
+    /* === KPI TILES === */
+    .kpi-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 24px; }
+    .kpi-tile { background: var(--white); border: 1px solid var(--divider); border-radius: 8px; padding: 14px 16px; }
+    .kpi-lbl { font-size: 10px; font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .kpi-val { font-size: 26px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+    .kpi-trend { font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; }
+    .trend-up { color: var(--green-100); }
+    .trend-down { color: var(--red-100); }
+    .trend-neutral { color: var(--subtle); }
+
+    /* === INTAKE QUEUE === */
+    .copay-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .cp-due { background: var(--yellow-20); color: var(--yellow-170); }
+    .cp-done { background: var(--green-20); color: var(--green-150); }
+    .cp-zero { background: var(--grey-2); color: var(--subtle); }
+    .collect-btn { height: 28px; padding: 0 12px; background: var(--white); border: 1px solid var(--divider); border-radius: 6px; font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .collect-btn:hover:not(:disabled) { background: var(--grey-0); border-color: var(--teal-50); }
+    .collect-btn.done { background: var(--green-20); border-color: var(--green-100); color: var(--green-150); cursor: default; }
+    .collect-btn:disabled { opacity: 0.4; cursor: default; }
+    .time-cell { font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .time-sub { font-size: 11px; color: var(--subtle); font-weight: 400; margin-top: 1px; }
   </style>
 </head>
 <body>
@@ -277,8 +343,9 @@
 <nav class="top-nav">
   <div class="nav-brand">Access<span>One</span></div>
   <div class="nav-tabs">
-    <div class="nav-tab" onclick="goWorklist()">Dashboard</div>
+    <div class="nav-tab" id="dash-tab" onclick="goDashboard()">Dashboard</div>
     <div class="nav-tab active" id="wl-tab" onclick="goWorklist()">Worklist <span class="nav-badge">48</span></div>
+    <div class="nav-tab" id="intake-tab" onclick="goIntake()">Intake</div>
     <div class="nav-tab" onclick="goWorklist()">Patient Search</div>
   </div>
   <div class="nav-right">
@@ -444,7 +511,8 @@
       <div class="action-row">
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 11.3l-3-2a1 1 0 00-1.2.1l-1.2 1.2a8.6 8.6 0 01-3.9-3.9l1.2-1.2a1 1 0 00.1-1.2l-2-3A1 1 0 003.5 1L2 2.5C1 3.5 1.5 6.7 5.1 10.9S13.5 16 14.5 15l1.5-1.5a1 1 0 00-.3-1.2z"/></svg> Initiate Outreach</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="8" height="11" rx="1"/><path d="M6 3V2a1 1 0 011-1h2a1 1 0 011 1v1M6 8h4M6 11h3"/></svg> Log Contact</button>
-        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 8h14M4 12h2"/></svg> Offer Plan</button>
+        <button class="act-btn" onclick="openModal('modal-payment','John Smith','$1,620')"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 8h14M4 12h2"/></svg> Take Payment</button>
+        <button class="act-btn" onclick="openModal('modal-enroll','John Smith','$1,620')"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4V2z"/><path d="M10 2v3h3M6 8h5M6 11h3"/></svg> Offer Plan</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v12M3 7l5-5 5 5"/></svg> Escalate</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8.5L8.5 1H15v6.5L7.5 15 1 8.5z"/><circle cx="12" cy="4" r="1" fill="currentColor"/></svg> Support Ticket</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v12M3 2h9l-3 4 3 4H3"/></svg> Flag Account</button>
@@ -603,7 +671,8 @@
       <div class="action-row">
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 11.3l-3-2a1 1 0 00-1.2.1l-1.2 1.2a8.6 8.6 0 01-3.9-3.9l1.2-1.2a1 1 0 00.1-1.2l-2-3A1 1 0 003.5 1L2 2.5C1 3.5 1.5 6.7 5.1 10.9S13.5 16 14.5 15l1.5-1.5a1 1 0 00-.3-1.2z"/></svg> Contact Patient</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="8" height="11" rx="1"/><path d="M6 3V2a1 1 0 011-1h2a1 1 0 011 1v1M6 8h4M6 11h3"/></svg> Log Contact</button>
-        <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2l3 3L5 14H2v-3z"/></svg> Modify Plan</button>
+        <button class="act-btn" onclick="openModal('modal-payment','Kim Nguyen','$2,880')"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 8h14M4 12h2"/></svg> Take Payment</button>
+        <button class="act-btn" onclick="openModal('modal-enroll','Kim Nguyen','$2,880')"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2l3 3L5 14H2v-3z"/></svg> Modify Plan</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14V8M6 14V4M10 14V10M14 14V6"/></svg> View Estimate</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8.5L8.5 1H15v6.5L7.5 15 1 8.5z"/><circle cx="12" cy="4" r="1" fill="currentColor"/></svg> Support Ticket</button>
         <button class="act-btn"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v12M3 2h9l-3 4 3 4H3"/></svg> Flag</button>
@@ -682,16 +751,381 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════
+     INTAKE QUEUE VIEW
+══════════════════════════════════════════ -->
+<div id="v-intake" class="view">
+  <div class="page-wrap">
+    <h1 class="page-title">Today's Appointments</h1>
+    <p class="page-sub">April 22, 2026 · Slocum Orthopaedics · 12 patients scheduled · 4 copays outstanding</p>
+
+    <div class="toolbar" style="margin-bottom:14px">
+      <div class="search-wrap">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+        <input class="search-input" type="text" placeholder="Search by patient name...">
+      </div>
+      <div class="chip on">Copay: Outstanding</div>
+      <div class="chip" onclick="this.classList.toggle('on')">All patients</div>
+      <span class="count" style="margin-left:auto">6 shown</span>
+    </div>
+
+    <div class="tbl-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Patient</th>
+            <th>Insurance</th>
+            <th>Copay Due</th>
+            <th>Plan Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="time-cell">8:30 AM</div><div class="time-sub">Arrived</div></td>
+            <td><div class="pt-name">Nguyen, Kim</div><div class="pt-guar">DOB: Jun 30, 1988</div></td>
+            <td>BCBS</td>
+            <td><span class="copay-badge cp-due">$40 due</span></td>
+            <td><span class="badge b-purple">24-Mo Plan Committed</span></td>
+            <td><button class="collect-btn" onclick="collectCopay(this)">Collect $40</button></td>
+          </tr>
+          <tr>
+            <td><div class="time-cell">9:00 AM</div><div class="time-sub">Checked in</div></td>
+            <td><div class="pt-name">Patel, Priya</div><div class="pt-guar">DOB: Aug 12, 1991</div></td>
+            <td>Aetna</td>
+            <td><span class="copay-badge cp-done">Collected</span></td>
+            <td><span class="badge b-grey">No plan</span></td>
+            <td><button class="collect-btn done" disabled>Collected</button></td>
+          </tr>
+          <tr>
+            <td><div class="time-cell">9:30 AM</div><div class="time-sub">Waiting</div></td>
+            <td><div class="pt-name">Williams, Tom</div><div class="pt-guar">DOB: Mar 4, 1975</div></td>
+            <td>United</td>
+            <td><span class="copay-badge cp-due">$25 due</span></td>
+            <td><span class="badge b-yellow">Pay in Four · Overdue</span></td>
+            <td><button class="collect-btn" onclick="collectCopay(this)">Collect $25</button></td>
+          </tr>
+          <tr>
+            <td><div class="time-cell">10:00 AM</div><div class="time-sub">Not arrived</div></td>
+            <td><div class="pt-name">Rodriguez, Carlos</div><div class="pt-guar">DOB: Nov 22, 1983</div></td>
+            <td>Cigna</td>
+            <td><span class="copay-badge cp-due">$50 due</span></td>
+            <td><span class="badge b-yellow">60-Mo Plan · At Risk</span></td>
+            <td><button class="collect-btn" onclick="collectCopay(this)">Collect $50</button></td>
+          </tr>
+          <tr>
+            <td><div class="time-cell">10:30 AM</div><div class="time-sub">Checked in</div></td>
+            <td><div class="pt-name">Thompson, Sarah</div><div class="pt-guar">DOB: Feb 17, 1990</div></td>
+            <td>BCBS</td>
+            <td><span class="copay-badge cp-zero">$0 copay</span></td>
+            <td><span class="badge b-green">24-Mo Plan · On Track</span></td>
+            <td><button class="collect-btn" disabled>No copay</button></td>
+          </tr>
+          <tr>
+            <td><div class="time-cell">11:00 AM</div><div class="time-sub">Not arrived</div></td>
+            <td><div class="pt-name">Garcia, Elena</div><div class="pt-guar">DOB: Sep 8, 1967</div></td>
+            <td>Medicare</td>
+            <td><span class="copay-badge cp-due">$20 due</span></td>
+            <td><span class="badge b-green">12-Mo Plan · On Track</span></td>
+            <td><button class="collect-btn" onclick="collectCopay(this)">Collect $20</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DASHBOARD / ANALYTICS VIEW
+══════════════════════════════════════════ -->
+<div id="v-dashboard" class="view">
+  <div class="page-wrap">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
+      <div>
+        <h1 class="page-title">AR Performance</h1>
+        <p class="page-sub">Last 30 days · All facilities · Slocum Orthopaedics</p>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="pn-btn">Last 30 days <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3.5L5 6.5L8 3.5"/></svg></button>
+        <button class="pn-btn"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h12M2 8h8M2 4h5"/></svg> Export</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-tile">
+        <div class="kpi-lbl">AR Days</div>
+        <div class="kpi-val">42</div>
+        <span class="kpi-trend trend-down">↑ +3 vs prior period</span>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-lbl">Default Rate</div>
+        <div class="kpi-val">3.2%</div>
+        <span class="kpi-trend trend-up">↓ −0.4% vs prior period</span>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-lbl">Plan Activation Rate</div>
+        <div class="kpi-val">68%</div>
+        <span class="kpi-trend trend-up">↑ +5% vs prior period</span>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-lbl">Payment Rate</div>
+        <div class="kpi-val">71%</div>
+        <span class="kpi-trend trend-neutral">→ Flat vs prior period</span>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-lbl">Total Outstanding</div>
+        <div class="kpi-val" style="font-size:20px;margin-top:3px">$1.24M</div>
+        <span class="kpi-trend trend-down">↑ +$42K vs prior period</span>
+      </div>
+    </div>
+
+    <div class="tbl-card">
+      <div style="padding:14px 16px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--divider)">
+        <span class="card-ttl">Facility Breakdown</span>
+        <span class="card-sub">5 facilities</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Facility</th>
+            <th>Accounts</th>
+            <th>Avg AR Days</th>
+            <th>Default Rate</th>
+            <th>Activation Rate</th>
+            <th>Outstanding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="pt-name">Slocum Orthopaedics — Main</div></td>
+            <td>214</td>
+            <td><span class="aging ag-red">58d</span></td>
+            <td><span style="color:var(--red-100);font-weight:700">5.1%</span></td>
+            <td>62%</td>
+            <td><div class="bal">$412K</div></td>
+          </tr>
+          <tr>
+            <td><div class="pt-name">Slocum Orthopaedics — North</div></td>
+            <td>187</td>
+            <td><span class="aging ag-orange">44d</span></td>
+            <td><span style="color:var(--orange-100);font-weight:700">3.8%</span></td>
+            <td>70%</td>
+            <td><div class="bal">$318K</div></td>
+          </tr>
+          <tr>
+            <td><div class="pt-name">Memorial Hermann Surgery Center</div></td>
+            <td>143</td>
+            <td><span class="aging" style="color:var(--green-100);font-weight:700">31d</span></td>
+            <td><span style="color:var(--green-100);font-weight:700">1.2%</span></td>
+            <td>79%</td>
+            <td><div class="bal">$224K</div></td>
+          </tr>
+          <tr>
+            <td><div class="pt-name">Slocum Orthopaedics — South</div></td>
+            <td>98</td>
+            <td><span class="aging ag-orange">39d</span></td>
+            <td><span style="color:var(--subtle);font-weight:700">2.9%</span></td>
+            <td>65%</td>
+            <td><div class="bal">$171K</div></td>
+          </tr>
+          <tr>
+            <td><div class="pt-name">Riverside Sports Medicine</div></td>
+            <td>76</td>
+            <td><span class="aging ag-orange">35d</span></td>
+            <td><span style="color:var(--subtle);font-weight:700">2.4%</span></td>
+            <td>71%</td>
+            <td><div class="bal">$115K</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAKE PAYMENT MODAL
+══════════════════════════════════════════ -->
+<div id="modal-payment" class="modal-backdrop" onclick="if(event.target===this)closeModal('modal-payment')">
+  <div class="modal-card">
+    <div class="modal-hdr">
+      <div class="modal-title">Take Payment</div>
+      <div class="modal-sub" id="pay-patient-sub"></div>
+    </div>
+    <div class="modal-body">
+      <div id="pay-form">
+        <div class="form-row">
+          <label class="form-label">Amount</label>
+          <input class="form-input" id="pay-amount" type="text" placeholder="$0.00">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Payment Method</label>
+          <div class="radio-group" id="pay-method-group">
+            <div class="radio-opt sel" onclick="selectPayMethod(this,'card')"><div class="radio-dot"></div>Credit / Debit Card</div>
+            <div class="radio-opt" onclick="selectPayMethod(this,'ach')"><div class="radio-dot"></div>ACH / Bank Account</div>
+          </div>
+        </div>
+        <div id="card-fields">
+          <div class="form-row">
+            <label class="form-label">Card Number</label>
+            <input class="form-input" type="text" placeholder="•••• •••• •••• ••••">
+          </div>
+          <div class="two-inputs">
+            <div class="form-row" style="margin-bottom:0">
+              <label class="form-label">Expiry</label>
+              <input class="form-input" type="text" placeholder="MM / YY">
+            </div>
+            <div class="form-row" style="margin-bottom:0">
+              <label class="form-label">CVV</label>
+              <input class="form-input" type="text" placeholder="•••">
+            </div>
+          </div>
+        </div>
+        <div class="form-row" style="margin-top:14px;margin-bottom:0">
+          <label class="form-label">Notes (optional)</label>
+          <input class="form-input" type="text" placeholder="e.g. Patient called in, verified identity">
+        </div>
+      </div>
+      <div id="pay-success" style="display:none" class="modal-success">
+        <div class="success-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10L8.5 14.5L16 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="success-ttl">Payment processed</div>
+        <div class="success-sub">Transaction logged to the activity timeline</div>
+      </div>
+    </div>
+    <div class="modal-footer" id="pay-footer">
+      <button class="btn-secondary" onclick="closeModal('modal-payment')">Cancel</button>
+      <button class="btn-primary" onclick="processPayment()">Process Payment</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ENROLL IN PLAN MODAL
+══════════════════════════════════════════ -->
+<div id="modal-enroll" class="modal-backdrop" onclick="if(event.target===this)closeModal('modal-enroll')">
+  <div class="modal-card">
+    <div class="modal-hdr">
+      <div class="modal-title">Enroll in Financing Plan</div>
+      <div class="modal-sub" id="enroll-patient-sub"></div>
+    </div>
+    <div class="modal-body">
+      <div id="enroll-form">
+        <div class="form-row">
+          <label class="form-label">Balance / Estimate Amount</label>
+          <input class="form-input" id="enroll-amount" type="text" placeholder="$0.00" oninput="updateEnrollCalc()">
+        </div>
+        <div class="form-row" style="margin-bottom:0">
+          <label class="form-label">Select Plan</label>
+          <div class="enroll-opts">
+            <div class="enroll-opt" onclick="selectEnrollPlan(this)"><div class="enroll-opt-lbl">Pay in Full</div><div class="enroll-opt-amt" id="ep-full">—</div></div>
+            <div class="enroll-opt" onclick="selectEnrollPlan(this)"><div class="enroll-opt-lbl">Pay in Four</div><div class="enroll-opt-amt" id="ep-four">—</div></div>
+            <div class="enroll-opt" onclick="selectEnrollPlan(this)"><div class="enroll-opt-lbl">12-Month</div><div class="enroll-opt-amt" id="ep-12">—</div></div>
+            <div class="enroll-opt sel" id="enroll-opt-default" onclick="selectEnrollPlan(this)"><div class="enroll-opt-lbl">24-Month</div><div class="enroll-opt-amt" id="ep-24">—</div></div>
+            <div class="enroll-opt" onclick="selectEnrollPlan(this)"><div class="enroll-opt-lbl">60-Month</div><div class="enroll-opt-amt" id="ep-60">—</div></div>
+          </div>
+        </div>
+        <div class="autopay-row">
+          <div>
+            <div class="autopay-lbl">Enroll in Auto-Pay</div>
+            <div class="autopay-sub">First payment on bill drop date</div>
+          </div>
+          <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+        </div>
+      </div>
+      <div id="enroll-success" style="display:none" class="modal-success">
+        <div class="success-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10L8.5 14.5L16 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="success-ttl">Plan enrollment confirmed</div>
+        <div class="success-sub">Patient notified · Auto-Pay enrolled · Plan starts at bill drop</div>
+      </div>
+    </div>
+    <div class="modal-footer" id="enroll-footer">
+      <button class="btn-secondary" onclick="closeModal('modal-enroll')">Cancel</button>
+      <button class="btn-primary" onclick="confirmEnroll()">Confirm Enrollment</button>
+    </div>
+  </div>
+</div>
+
 <script>
-  function goWorklist() {
+  function openView(id) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.getElementById('v-wl').classList.add('active');
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
   }
-  function goPatient(id) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.getElementById('v-' + id).classList.add('active');
-    window.scrollTo(0, 0);
+  function goWorklist() { openView('v-wl'); document.getElementById('wl-tab').classList.add('active'); }
+  function goPatient(id) { openView('v-' + id); }
+  function goIntake()    { openView('v-intake'); document.getElementById('intake-tab').classList.add('active'); }
+  function goDashboard() { openView('v-dashboard'); document.getElementById('dash-tab').classList.add('active'); }
+
+  function openModal(id, patientName, amount) {
+    if (id === 'modal-payment') {
+      document.getElementById('pay-patient-sub').textContent = patientName + ' \u00b7 ' + amount + ' outstanding';
+      document.getElementById('pay-amount').value = amount;
+      document.getElementById('pay-form').style.display = 'block';
+      document.getElementById('pay-success').style.display = 'none';
+      document.getElementById('pay-footer').style.display = 'flex';
+      document.querySelectorAll('#pay-method-group .radio-opt').forEach((o, i) => o.classList.toggle('sel', i === 0));
+      document.getElementById('card-fields').style.display = 'block';
+    }
+    if (id === 'modal-enroll') {
+      document.getElementById('enroll-patient-sub').textContent = patientName;
+      document.getElementById('enroll-amount').value = amount;
+      document.getElementById('enroll-form').style.display = 'block';
+      document.getElementById('enroll-success').style.display = 'none';
+      document.getElementById('enroll-footer').style.display = 'flex';
+      document.querySelectorAll('.enroll-opt').forEach(o => o.classList.remove('sel'));
+      document.getElementById('enroll-opt-default').classList.add('sel');
+      updateEnrollCalc();
+    }
+    document.getElementById(id).classList.add('open');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function selectPayMethod(el, type) {
+    document.querySelectorAll('#pay-method-group .radio-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    document.getElementById('card-fields').style.display = type === 'card' ? 'block' : 'none';
+  }
+
+  function processPayment() {
+    document.getElementById('pay-form').style.display = 'none';
+    document.getElementById('pay-footer').style.display = 'none';
+    document.getElementById('pay-success').style.display = 'block';
+    setTimeout(() => closeModal('modal-payment'), 1800);
+  }
+
+  function selectEnrollPlan(el) {
+    document.querySelectorAll('.enroll-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+  }
+
+  function updateEnrollCalc() {
+    const raw = (document.getElementById('enroll-amount').value || '').replace(/[^0-9.]/g, '');
+    const amt = parseFloat(raw) || 0;
+    const fmt = n => n ? '$' + Math.round(n).toLocaleString('en-US') : '\u2014';
+    document.getElementById('ep-full').textContent = fmt(amt);
+    document.getElementById('ep-four').textContent = amt ? '$' + Math.round(amt/4).toLocaleString('en-US') + '\u00d74' : '\u2014';
+    document.getElementById('ep-12').textContent  = amt ? '$' + Math.round(amt/12).toLocaleString('en-US') + '/mo' : '\u2014';
+    document.getElementById('ep-24').textContent  = amt ? '$' + Math.round(amt/24).toLocaleString('en-US') + '/mo' : '\u2014';
+    document.getElementById('ep-60').textContent  = amt ? '$' + Math.round(amt/60).toLocaleString('en-US') + '/mo' : '\u2014';
+  }
+
+  function confirmEnroll() {
+    document.getElementById('enroll-form').style.display = 'none';
+    document.getElementById('enroll-footer').style.display = 'none';
+    document.getElementById('enroll-success').style.display = 'block';
+    setTimeout(() => closeModal('modal-enroll'), 1800);
+  }
+
+  function collectCopay(btn) {
+    const row = btn.closest('tr');
+    const badge = row.querySelector('.copay-badge');
+    btn.textContent = 'Collected';
+    btn.classList.add('done');
+    btn.disabled = true;
+    badge.className = 'copay-badge cp-done';
+    badge.textContent = 'Collected';
   }
 </script>
 </body>
